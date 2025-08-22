@@ -15,7 +15,22 @@ void runTests(void);
 string starC(int width, int height)
 {
   string result = "";
-  result = "stub"; // TODO: remove this line, replace with correct code
+  if ((width < 2) || (height < 3)){
+    return "";
+  }
+  // height is how many lines we will have (how many times we will repeat our code)
+  // width is the number of stars we will have on the first and last lines
+  for (int i = 0; i < height; i++){
+      if ((i == 0) || (i == height - 1)){
+        std::string repeated(width, '*');
+        result += repeated;
+        result += '\n';
+      }
+      else {
+        result += '*';
+        result += '\n';
+      }
+  }
   return result;
 }
 
@@ -79,16 +94,19 @@ int main(int argc, char *argv[])
 
   // TODO: Add check for parameters
   // and code to print usage message
+  if (argc != 3){
+    cerr << "Only enter 2 parameters" << endl;
+    exit(1); 
+  }
 
-  // TODO: Add code to get width and height from cmd line args
-  // code that checks if they are both -1; if so, call runTests()
-  // then exit.
+  int width = stoi(argv[1]);
+  int height = stoi(argv[2]);
 
-  runTests();
+  if ((width == -1) && (height == -1)){
+    runTests();
+    exit(0);
+  }
 
-  // TODO: Add code that calls the starC function and prints
-  // the result on cout (without an extra newline)
-
+  cout << starC(width, height);
   return 0;
-
 }
