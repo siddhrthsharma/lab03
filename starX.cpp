@@ -9,9 +9,37 @@ void assertEquals(string expected, string actual, string message);
 string starX(int width);
 void runTests(void);
 
-string starX(int width)
+std::string starX(int width)
 {
-  return "stub";
+    std::string result = "";
+
+    if ((width % 2 == 0) || (width < 3)) {
+        return ""; // only odd widths >= 3 allowed
+    }
+
+    int middle_star = width / 2;   // zero-based index for the middle row
+    string outer_spaces = "";
+    int spaces = width - 2;
+
+    for (int i = 0; i < middle_star; i++) {   // stop before the middle
+        std::string inner_spaces(spaces, ' ');
+        result += outer_spaces + "*" + inner_spaces + "*" + outer_spaces + "\n";
+
+        outer_spaces += " ";
+        spaces -= 2;
+    }
+
+    // Add the middle row (just one star in the center)
+    result += outer_spaces + "*" + outer_spaces + "\n";
+    string inner_spaces = " ";
+    
+    for (int i = middle_star; i < width - 1; i++){
+      std::string outer_spaces(middle_star-1, ' ');
+      result += outer_spaces + "*" + inner_spaces + "*" + outer_spaces + "\n";   
+      middle_star -= 1;
+      inner_spaces += "  ";
+    }
+    return result;
 }
 
 // Test-Driven Development;
@@ -66,6 +94,12 @@ void assertEquals(string expected, string actual, string message = "")
 
 int main(int argc, char *argv[])
 {
+  int width = stoi(argv[1]);
+  cout << starX(width);
+  if (width == -1){
+    runTests();
+    exit(0);
+  }
   return 0;
 }
 
