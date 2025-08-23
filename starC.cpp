@@ -27,7 +27,9 @@ string starC(int width, int height)
         result += '\n';
       }
       else {
+        std:string repeated(width-1, ' ');
         result += '*';
+        result += repeated;
         result += '\n';
       }
   }
